@@ -1,0 +1,12 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2347:17: remark: loop not vectorized: cannot prove it is safe to reorder floating-point operations; allow reordering by specifying '#pragma clang loop vectorize(enable)' before the loop or by providing the compiler option '-ffast-math' [-Rpass-analysis=loop-vectorize]
+ 2347 |             dot += a[i] * b[i];
+      |                 ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2346:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+ 2346 |         for (int i = 0; i < LEN_1D; i++) {
+      |         ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2347:17: remark: loop not vectorized: cannot prove it is safe to reorder floating-point operations; allow reordering by specifying '#pragma clang loop vectorize(enable)' before the loop or by providing the compiler option '-ffast-math' [-Rpass-analysis=loop-vectorize]
+ 2347 |             dot += a[i] * b[i];
+      |                 ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2346:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+ 2346 |         for (int i = 0; i < LEN_1D; i++) {
+      |         ^

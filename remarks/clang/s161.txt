@@ -1,0 +1,11 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:723:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  723 |         for (int i = 0; i < LEN_1D-1; ++i) {
+      |         ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:741:8: note: could not determine the original source location for third_party/TSVC_2/src/tsvc.c:0:0
+  741 | real_t s1161(struct args_t * func_args)
+      |        ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:741:8: remark: loop not vectorized: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separate loop
+Unsafe indirect dependence. Memory location is the same as accessed at third_party/TSVC_2/src/tsvc.c:759:20 [-Rpass-analysis=loop-vectorize]
+  741 | real_t s1161(struct args_t * func_args)
+      |        ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:741:8: note: could not determine the original source location for third_party/TSVC_2/src/tsvc.c:0:0

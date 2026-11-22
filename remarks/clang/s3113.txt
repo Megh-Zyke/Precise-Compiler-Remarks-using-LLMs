@@ -1,0 +1,12 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2663:9: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+ 2663 |         for (int i = 0; i < LEN_1D; i++) {
+      |         ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2663:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2688:18: remark: loop not vectorized: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separate loop
+Backward loop carried data dependence. Memory location is the same as accessed at third_party/TSVC_2/src/tsvc.c:2688:21 [-Rpass-analysis=loop-vectorize]
+ 2688 |             a[i] += a[i-1] * b[i];
+      |                  ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2663:9: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+ 2663 |         for (int i = 0; i < LEN_1D; i++) {
+      |         ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2663:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]

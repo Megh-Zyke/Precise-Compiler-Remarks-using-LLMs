@@ -1,0 +1,6 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:302:22: remark: loop not vectorized: cannot prove it is safe to reorder floating-point operations; allow reordering by specifying '#pragma clang loop vectorize(enable)' before the loop or by providing the compiler option '-ffast-math' [-Rpass-analysis=loop-vectorize]
+  302 |                 a[i] += bb[j][i] * a[i-j-1];
+      |                      ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:301:13: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  301 |             for (int j = 0; j <= i - 1; j++) {
+      |             ^

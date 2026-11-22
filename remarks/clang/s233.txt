@@ -1,0 +1,11 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1168:13: remark: the cost-model indicates that vectorization is not beneficial [-Rpass-missed=loop-vectorize]
+ 1168 |             for (int j = 1; j < LEN_2D; j++) {
+      |             ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1168:13: remark: the cost-model indicates that interleaving is not beneficial [-Rpass-missed=loop-vectorize]
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1166:26: remark: loop not vectorized: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separate loop
+Backward loop carried data dependence. Memory location is the same as accessed at third_party/TSVC_2/src/tsvc.c:1166:28 [-Rpass-analysis=loop-vectorize]
+ 1166 |                 aa[j][i] = aa[j-1][i] + cc[j][i];
+      |                          ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1165:13: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+ 1165 |             for (int j = 1; j < LEN_2D; j++) {
+      |             ^

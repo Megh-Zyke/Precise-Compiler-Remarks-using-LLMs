@@ -1,0 +1,10 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:3271:20: remark: loop not vectorized: library call cannot be vectorized. Try compiling with -fno-math-errno, -ffast-math, or similar flags [-Rpass-analysis=loop-vectorize]
+ 3271 |             a[i] = sinf(b[i]) + cosf(c[i]);
+      |                    ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:3271:33: remark: loop not vectorized: library call cannot be vectorized. Try compiling with -fno-math-errno, -ffast-math, or similar flags [-Rpass-analysis=loop-vectorize]
+ 3271 |             a[i] = sinf(b[i]) + cosf(c[i]);
+      |                                 ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:3270:9: remark: loop not vectorized: instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+ 3270 |         for (int i = 0; i < LEN_1D; i++) {
+      |         ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:3270:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]

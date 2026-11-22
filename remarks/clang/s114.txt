@@ -1,0 +1,3 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:206:13: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+  206 |             for (int j = 0; j < i; j++) {
+      |             ^

@@ -1,0 +1,7 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1071:9: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+ 1071 |         for (int i = 1; i < LEN_1D; i++) {
+      |         ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1096:26: remark: loop not vectorized: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separate loop
+Backward loop carried data dependence. Memory location is the same as accessed at third_party/TSVC_2/src/tsvc.c:1096:28 [-Rpass-analysis=loop-vectorize]
+ 1096 |                 aa[j][i] = aa[j - 1][i] + bb[j][i];
+      |                          ^

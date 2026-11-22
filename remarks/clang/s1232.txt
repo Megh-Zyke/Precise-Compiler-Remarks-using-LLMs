@@ -1,0 +1,4 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1141:13: remark: the cost-model indicates that vectorization is not beneficial [-Rpass-missed=loop-vectorize]
+ 1141 |             for (int i = j; i < LEN_2D; i++) {
+      |             ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:1141:13: remark: the cost-model indicates that interleaving is not beneficial [-Rpass-missed=loop-vectorize]

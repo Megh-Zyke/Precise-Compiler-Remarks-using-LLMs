@@ -1,0 +1,7 @@
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2302:9: remark: loop not vectorized: call instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+ 2302 |         dummy(a, b, c, d, e, aa, bb, cc, sum);
+      |         ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2292:5: remark: loop not vectorized: instruction cannot be vectorized [-Rpass-analysis=loop-vectorize]
+ 2292 |     for (int nl = 0; nl < 2000*iterations; nl++) {
+      |     ^
+/home/meghss/project/third_party/TSVC_2/src/tsvc.c:2292:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
