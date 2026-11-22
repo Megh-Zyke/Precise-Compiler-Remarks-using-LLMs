@@ -1,0 +1,14 @@
+You are optimizing a C loop so the compiler can auto-vectorize it.
+Rewrite the function below so that Clang -O3 vectorizes the loop and the
+function computes exactly the same result. Keep the signature unchanged.
+Do not use pragmas, intrinsics or inline assembly.
+
+<code>
+{LOOP_SOURCE}
+</code>
+
+<compiler_feedback>
+{FEEDBACK}
+</compiler_feedback>
+
+Return only the complete rewritten function in one C code block.
