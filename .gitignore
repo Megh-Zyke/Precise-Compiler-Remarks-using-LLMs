@@ -8,3 +8,4 @@ bin/
 build/
 results/raw/*
 !results/raw/.gitkeep
+demos/
