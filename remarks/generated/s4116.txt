@@ -1,0 +1,5 @@
+conflict: unknown
+kind: unknown
+distance: unknown
+loop-carried: unknown
+suggested fix: unknown

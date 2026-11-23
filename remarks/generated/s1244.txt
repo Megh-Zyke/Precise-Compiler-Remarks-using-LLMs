@@ -1,0 +1,5 @@
+conflict: a[i], 1336, 18 <-> a[i+1], 1337, 27
+kind: write-after-read
+distance: 1
+loop-carried: yes
+suggested fix: Save the value that is read ahead into a temporary before the write that overwrites it, then use the temporary.

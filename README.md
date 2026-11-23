@@ -6,8 +6,8 @@ LLM-generated remark recover, when an LLM agent rewrites loops so Clang vectoriz
 ## Arms (same agent, prompt, model, temperature, loops in every arm)
 - B0: no remarks
 - B1: Clang's standard remarks
-- B2: hand-written precise remarks (style of arXiv 2604.13927)
-- Ours: LLM-generated remarks (LLM writes the remark from LLVM's dependence output)
+- B2: hand-written precise remarks (style of arXiv 2604.13927). A reviewed subset is in remarks/handwritten/; the rest of the kernels are still open.
+- Ours: remarks/generated/, filled by src/remark_gen.py from LLVM LoopAccess. prompts/remark_writer.txt is the LLM version of that format and has not been run.
 
 ## Pinned settings (see src/config.py; changing them invalidates earlier runs)
 - Compiler: clang (record `clang --version` below), flags `-O3 -fstrict-aliasing -march=native`
@@ -23,7 +23,9 @@ Recorded versions:
     pip install -r requirements.txt
     cp .env.example .env        # then add your API key
     git submodule update --init  # if third_party/TSVC_2 is empty
-    python3 src/filter_loops.py  # which TSVC kernels does Clang fail to vectorize?
+    python3 src/filter_loops.py   # which TSVC kernels does Clang fail to vectorize?
+    python3 -m src.remark_gen     # LLVM LoopAccess -> remarks/generated/
+    python3 -m src.correctness    # self-test the checksum checker
 
 ## Status (tick as you go; task IDs refer to the project plan doc)
 - [ ] T0.1 LLVM/Clang installed, versions recorded above

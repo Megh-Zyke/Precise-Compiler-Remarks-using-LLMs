@@ -1,0 +1,5 @@
+conflict: a[LEN_1D-i-1], 2064, 17 <-> a[i], 2065, 18
+kind: unknown
+distance: unknown
+loop-carried: unknown
+suggested fix: unknown

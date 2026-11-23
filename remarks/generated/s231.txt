@@ -1,0 +1,5 @@
+conflict: aa[j][i], 1096, 26 <-> aa[j - 1][i], 1096, 28
+kind: read-after-write
+distance: 1
+loop-carried: yes
+suggested fix: A later iteration reads the value this iteration writes. A temporary of the loaded value does not remove that dependence.
