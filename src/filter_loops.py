@@ -16,9 +16,12 @@ from . import config
 from .compile_check import compile_c
 
 FUNC_RE = re.compile(r"^(?:real_t|int|void)\s+(\w+)\s*\(struct args_t")
-REMARK_RE = re.compile(
-    r"^(?P<file>[^:\n]+):(?P<line>\d+):(?P<col>\d+): remark: (?P<msg>.*) "
-    r"\[-Rpass(?P<kind>-missed|-analysis)?=loop-vectorize\]\s*$")
+DIAGNOSTIC_RE = re.compile(
+    r"^(?P<file>[^:\n]+):(?P<line>\d+):(?P<col>\d+): "
+    r"(?P<level>remark|note|warning|error|fatal error): ")
+REMARK_FLAG_RE = re.compile(
+    r"\[-Rpass(?P<kind>-missed|-analysis)?=loop-vectorize\][ \t]*$",
+    re.MULTILINE)
 
 
 def function_ranges(lines):
@@ -32,21 +35,33 @@ def function_ranges(lines):
 
 
 def parse_blocks(stderr):
-    """Split clang's stderr into remark blocks: (line, kind, full_text)."""
-    blocks, cur = [], None
+    """Split clang's stderr into remark blocks: (line, kind, full_text).
+
+    A diagnostic starts at its source location, but its optimization flag
+    may appear on a continuation line. Classify only after collecting it.
+    """
+    diagnostics, header, lines = [], None, []
     for raw in stderr.splitlines():
-        m = REMARK_RE.match(raw)
-        if m:
-            if cur:
-                blocks.append(cur)
+        match = DIAGNOSTIC_RE.match(raw)
+        if match:
+            if header is not None:
+                diagnostics.append((header, "\n".join(lines)))
+            header, lines = match, [raw]
+        elif header is not None:
+            lines.append(raw)
+    if header is not None:
+        diagnostics.append((header, "\n".join(lines)))
+
+    blocks = []
+    for header, text in diagnostics:
+        if header.group("level") != "remark":
+            continue
+        flag = REMARK_FLAG_RE.search(text)
+        if flag:
             kind = {"": "passed", "-missed": "missed",
-                    "-analysis": "analysis"}[m.group("kind") or ""]
-            cur = [int(m.group("line")), kind, [raw]]
-        elif cur is not None:
-            cur[2].append(raw)
-    if cur:
-        blocks.append(cur)
-    return [(ln, kind, "\n".join(txt)) for ln, kind, txt in blocks]
+                    "-analysis": "analysis"}[flag.group("kind") or ""]
+            blocks.append((int(header.group("line")), kind, text))
+    return blocks
 
 
 def main():
