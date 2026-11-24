@@ -1,0 +1,67 @@
+kernel,kinds,laa_report,note
+s1113,unknown,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s114,unknown,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s116,write-after-read,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s118,unknown,Memory dependences are safe,no unsafe dependence listed
+s123,unknown,Report: cannot identify array bounds,no unsafe dependence listed
+s126,read-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s161,read-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s1161,unknown,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,no unsafe dependence listed
+s211,unknown,Memory dependences are safe,no unsafe dependence listed
+s212,write-after-read,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s1213,write-after-read,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s221,unknown,Memory dependences are safe,no unsafe dependence listed
+s222,unknown,Memory dependences are safe,no unsafe dependence listed
+s231,read-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s232,unknown,Memory dependences are safe,no unsafe dependence listed
+s1232,unknown,Memory dependences are safe,no unsafe dependence listed
+s233,read-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ | Memory dependences are safe,
+s235,read-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s241,write-after-read,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s242,unknown,Memory dependences are safe,no unsafe dependence listed
+s244,write-after-read;write-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s1244,write-after-read,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s2251,unknown,Memory dependences are safe,no unsafe dependence listed
+s256,unknown,Memory dependences are safe,no unsafe dependence listed
+s258,unknown,Memory dependences are safe,no unsafe dependence listed
+s261,unknown,Memory dependences are safe,no unsafe dependence listed
+s275,read-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s2275,unknown,Memory dependences are safe,no unsafe dependence listed
+s277,read-after-write,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s281,unknown,Report: unsafe dependent memory operations in loop. Use #pragma clang loop distribute(enable) to allow loop distribution to attempt to isolate the offending operations into a separ,
+s291,unknown,Memory dependences are safe,no unsafe dependence listed
+s292,unknown,Memory dependences are safe,no unsafe dependence listed
+s2101,unknown,Memory dependences are safe,no unsafe dependence listed
+s2102,unknown,Memory dependences are safe,no unsafe dependence listed
+s2111,unknown,Memory dependences are safe,no unsafe dependence listed
+s311,unknown,Memory dependences are safe,no unsafe dependence listed
+s31111,unknown,Memory dependences are safe | Memory dependences are safe | Memory dependences are safe | Memory dependences are safe | Memory dependences are safe | Memory dependences are safe | Memory dependences are safe | Memory dependences are safe,no unsafe dependence listed
+s312,unknown,Memory dependences are safe,no unsafe dependence listed
+s313,unknown,Memory dependences are safe,no unsafe dependence listed
+s314,unknown,Memory dependences are safe,no unsafe dependence listed
+s316,unknown,Memory dependences are safe,no unsafe dependence listed
+s317,unknown,Memory dependences are safe,no unsafe dependence listed
+s318,unknown,Memory dependences are safe,no unsafe dependence listed
+s319,unknown,Memory dependences are safe,no unsafe dependence listed
+s3110,unknown,Memory dependences are safe,no unsafe dependence listed
+s13110,unknown,Memory dependences are safe,no unsafe dependence listed
+s3111,unknown,Memory dependences are safe,no unsafe dependence listed
+s3112,unknown,Memory dependences are safe,no unsafe dependence listed
+s3113,unknown,Memory dependences are safe,no unsafe dependence listed
+s321,unknown,Memory dependences are safe,no unsafe dependence listed
+s322,unknown,"Memory dependences are safe with a maximum safe vector width of 64 bits, with a maximum safe store-load forward width of 64 bits",no unsafe dependence listed
+s323,unknown,Memory dependences are safe,no unsafe dependence listed
+s341,unknown,Memory dependences are safe,no unsafe dependence listed
+s342,unknown,Memory dependences are safe,no unsafe dependence listed
+s343,unknown,Memory dependences are safe,no unsafe dependence listed
+s352,unknown,Memory dependences are safe,no unsafe dependence listed
+s353,unknown,Memory dependences are safe,no unsafe dependence listed
+s451,unknown,Memory dependences are safe,no unsafe dependence listed
+s453,unknown,Memory dependences are safe,no unsafe dependence listed
+s481,unknown,Memory dependences are safe,no unsafe dependence listed
+s482,unknown,Memory dependences are safe,no unsafe dependence listed
+s4115,unknown,Memory dependences are safe,no unsafe dependence listed
+s4116,unknown,Memory dependences are safe,no unsafe dependence listed
+va,unknown,Report: instruction cannot be vectorized,no unsafe dependence listed
+vsumr,unknown,Memory dependences are safe,no unsafe dependence listed
+vdotr,unknown,Memory dependences are safe,no unsafe dependence listed

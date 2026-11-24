@@ -1,0 +1,11 @@
+conflict: a[i], 1314, 18 <-> a[i+1], 1316, 29
+kind: write-after-read
+distance: 1
+loop-carried: yes
+suggested fix: Save the value that is read ahead into a temporary before the write that overwrites it, then use the temporary.
+
+conflict: a[i], 1314, 18 <-> a[i+1], 1316, 20
+kind: write-after-write
+distance: 1
+loop-carried: yes
+suggested fix: More than one iteration writes the same element. The store that is last in scalar order has to be the one that remains.

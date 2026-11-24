@@ -1,0 +1,11 @@
+conflict: a[i], 2710, 13 <-> a[i - 1], 2710, 27
+kind: read-after-write
+distance: 1
+loop-carried: yes
+suggested fix: A later iteration reads the value this iteration writes. A temporary of the loaded value does not remove that dependence.
+
+conflict: a[i], 2710, 13 <-> a[i - 2], 2710, 45
+kind: read-after-write
+distance: 2
+loop-carried: yes
+suggested fix: A later iteration reads the value this iteration writes. A temporary of the loaded value does not remove that dependence.

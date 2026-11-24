@@ -1,0 +1,8 @@
+kernel,kind,distance,laa,lines,note
+s212,write-after-read,1,unsafe backward; same pair as remarks/generated/s212.txt,986-987,"Read of a[i+1] is overwritten by the next iteration's store of a[i]. Column is the start of the expression; the generated file keeps LLVM's debug column."
+s1244,write-after-read,1,unsafe; same pair as remarks/generated/s1244.txt,1336-1337,"Same repair the paper describes (keep a[i+1] in a temporary). Line numbers are this TSVC_2 tree, not the paper's."
+s233,read-after-write,1,unsafe; same pair as remarks/generated/s233.txt,1166,Inner loop on j. aa[j][i] reads aa[j-1][i] from the previous iteration.
+s244,write-after-read;write-after-write,1,unsafe; same pairs as remarks/generated/s244.txt,1314-1316,"a[i] and a[i+1]: the read is write-after-read, and the two stores are write-after-write."
+s221,read-after-write,1,Memory dependences are safe,1031,Named from the source. remark_gen.py left the generated remark unknown because LLVM 23 did not list an unsafe dependence.
+s321,read-after-write,1,Memory dependences are safe,2688,First-order recurrence a[i] += a[i-1]. LLVM 23 did not list an unsafe dependence, so remarks/generated/s321.txt is unknown.
+s322,read-after-write,1;2,"safe with a maximum safe vector width of 64 bits",2710,"Second-order recurrence. LLVM 23 called the dependence safe up to that width. remarks/generated/s322.txt stays unknown."
