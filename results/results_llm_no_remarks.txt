@@ -1,0 +1,3877 @@
+B0: local LLM without compiler remarks
+
+Run status: complete
+Started (UTC): 2026-11-24T08:24:40.472619+00:00
+Kernels: 151
+Independent rewrites per kernel: 5
+Completed kernels: 151
+Completed rewrites: 755
+Correct rewrites: 387
+Current kernel: vbor
+Current rewrite: 5/5
+Model: qwen2.5-coder:7b-instruct-fp16
+Model digest: 04d6c52b369903631a0bf076d42748d8bb578d4aaac6073c1ed33803a1e07fb5
+Quantization: F16
+Temperature: 0.8
+Base seed: 583
+Max output tokens: 4096
+Context tokens: 8192
+Compiler: Ubuntu clang version 14.0.0-1ubuntu1.1
+Compiler flags: -O3 -fstrict-aliasing -march=native
+Platform: Linux-6.8.0-1064-nvidia-x86_64-with-glibc2.35
+Source SHA256: d87fdcf902720c09f1191fd310f5b80e1c95a1fd48394d6cced7cd78ad01a8af
+Prompt SHA256: beb2559af3fa5fdb10227a96b4100a8d63a50f6635f6aedf12b5b5e169046adf
+Timing: One full-size kernel call per rewrite; keep the fastest correct rewrite
+Full workload: Workload(iterations=100000, len_1d=32000, len_2d=256)
+Check workload: Workload(iterations=640, len_1d=320, len_2d=40)
+Correctness: Return/checksum and array outputs on both workloads
+Float tolerance: 0.001 + 0.0001 * abs(original)
+Finished (UTC): 2026-11-24T14:09:46.446893+00:00
+
+========================================================================
+Kernel: s000
+Status: correct
+Time (seconds): 1.83453727
+Checksum: 512066944
+Rewritten code:
+real_t s000(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 2*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            real_t a1 = b[i] + 1;
+            real_t a2 = b[i+1] + 1;
+            real_t a3 = b[i+2] + 1;
+            real_t a4 = b[i+3] + 1;
+            a[i] = a1;
+            a[i+1] = a2;
+            a[i+2] = a3;
+            a[i+3] = a4;
+        }
+        dummy((real_t*)a, (real_t*)b, (real_t*)c, (real_t*)d, (real_t*)e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s111
+Status: correct
+Time (seconds): 1.00058365
+Checksum: 32000.41015625
+Rewritten code:
+real_t s111(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 2*iterations; nl++) {
+        for (int i = 1; i < LEN_1D; i += 2) {
+            a[i] = a[i - 1] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1111
+Status: correct
+Time (seconds): 1.00447038
+Checksum: 96000
+Rewritten code:
+real_t s1111(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 2*iterations; nl++) {
+        for (int i = 0; i < LEN_1D/2; i++) {
+            real_t temp1 = c[i] * b[i];
+            real_t temp2 = d[i] * b[i];
+            real_t temp3 = c[i] * c[i];
+            real_t temp4 = d[i] * c[i];
+            a[2*i] = temp1 + temp2 + temp3 + temp2 + temp4;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s112
+Status: correct
+Time (seconds): 3.3771328
+Checksum: 84644.8984375
+Rewritten code:
+real_t s112(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 3 * iterations; nl++) {
+        for (int i = LEN_1D - 2; i >= 0; i--) {
+            a[i + 1] = a[i] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1112
+Status: correct
+Time (seconds): 0.772056749
+Checksum: 64000
+Rewritten code:
+real_t s1112(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations*3; nl++) {
+        for (int i = LEN_1D - 1; i >= 0; i--) {
+            a[i] = b[i] + 1.0;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s113
+Status: correct
+Time (seconds): 1.23416615
+Checksum: 32000.640625
+Rewritten code:
+real_t s113(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 1; i < LEN_1D; i++) {
+            a[i] = a[0] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1113
+Status: correct
+Time (seconds): 2.31439305
+Checksum: 6401676800
+Rewritten code:
+real_t s1113(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 2 * iterations; nl++) {
+        int half_len = LEN_1D / 2;
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = a[half_len] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s114
+Status: correct
+Time (seconds): 3.30936993
+Checksum: 919.869873046875
+Rewritten code:
+real_t s114(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 200 * (iterations / (LEN_2D)); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 0; j < i; j++) {
+                aa[i][j] = aa[j][i] + bb[i][j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s115
+Status: correct
+Time (seconds): 1.68320416
+Checksum: 31745.953125
+Rewritten code:
+real_t s115(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 1000 * (iterations / LEN_2D); nl++) {
+        for (int j = 0; j < LEN_2D; j++) {
+            real_t temp = a[j];
+            for (int i = j + 1; i < LEN_2D; i++) {
+                a[i] -= aa[j][i] * temp;
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1115
+Status: correct
+Time (seconds): 3.20444865
+Checksum: 240339.953125
+Rewritten code:
+real_t s1115(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                aa[i][j] = aa[i][j] * cc[j][i] + bb[i][j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s116
+Status: correct
+Time (seconds): 4.81748282
+Checksum: 32000
+Rewritten code:
+real_t s116(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations*10; nl++) {
+        for (int i = 0; i <= LEN_1D - 6; i += 5) {
+            real_t a0 = a[i];
+            real_t a1 = a[i + 1];
+            real_t a2 = a[i + 2];
+            real_t a3 = a[i + 3];
+            real_t a4 = a[i + 4];
+
+            a[i] = a1 * a0;
+            a[i + 1] = a2 * a1;
+            a[i + 2] = a3 * a2;
+            a[i + 3] = a4 * a3;
+            a[i + 4] = a0 * a4;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s118
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s119
+Status: correct
+Time (seconds): 0.51995903
+Checksum: 86343.2890625
+Rewritten code:
+real_t s119(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 200 * (iterations / (LEN_2D)); nl++) {
+        for (int i = 1; i < LEN_2D; i++) {
+            for (int j = 1; j < LEN_2D; j++) {
+                aa[i][j] = aa[i - 1][j - 1] + bb[i][j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1119
+Status: correct
+Time (seconds): 0.499499987
+Checksum: 201466.390625
+Rewritten code:
+real_t s1119(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 200 * (iterations / (LEN_2D)); nl++) {
+        for (int i = 1; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                aa[i][j] = aa[i-1][j] + bb[i][j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s121
+Status: correct
+Time (seconds): 0.890883906
+Checksum: 32009.0234375
+Rewritten code:
+real_t s121(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j;
+    for (int nl = 0; nl < 3*iterations; nl++) {
+        for (int i = 0; i < LEN_1D-1; i++) {
+            j = i + 1;
+            a[i] = a[j] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s122
+Status: correct
+Time (seconds): 1.34067391
+Checksum: 196490.1875
+Rewritten code:
+real_t s122(struct args_t * func_args)
+{
+    struct{int a;int b;} * x = func_args->arg_info;
+    int n1 = x->a;
+    int n3 = x->b;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j, k;
+    for (int nl = 0; nl < iterations; nl++) {
+        j = 1;
+        k = 0;
+        for (int i = n1-1; i < LEN_1D; i += n3) {
+            k += j;
+            a[i] += b[LEN_1D - k];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s123
+Status: correct
+Time (seconds): 1.71608763
+Checksum: 32003.283203125
+Rewritten code:
+real_t s123(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j;
+    for (int nl = 0; nl < iterations; nl++) {
+        j = -1;
+        for (int i = 0; i < (LEN_1D/2); i++) {
+            j++;
+            a[j] = b[i] + d[i] * e[i];
+            if (c[i] > (real_t)0.) {
+                j++;
+                a[j] = c[i] + d[i] * e[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s124
+Status: correct
+Time (seconds): 0.712952968
+Checksum: 32001.640625
+Rewritten code:
+real_t s124(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j;
+    for (int nl = 0; nl < iterations; nl++) {
+        j = -1;
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t temp = b[i] > (real_t)0. ? c[i] : b[i];
+            a[++j] = temp + d[i] * e[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s125
+Status: correct
+Time (seconds): 0.694197833
+Checksum: 131072
+Rewritten code:
+real_t s125(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int k;
+    for (int nl = 0; nl < 100 * (iterations / (LEN_2D)); nl++) {
+        k = -1;
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                k++;
+                flat_2d_array[k] = aa[i][j] + bb[i][j] * cc[i][j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s126
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s127
+Status: correct
+Time (seconds): 0.77734643
+Checksum: 32003.283203125
+Rewritten code:
+real_t s127(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j;
+    for (int nl = 0; nl < 2*iterations; nl++) {
+        j = -1;
+        for (int i = 0; i < LEN_1D/2; i++) {
+            j++;
+            a[j] = b[i] + c[i] * d[i];
+            j++;
+            a[j] = b[i] + d[i] * e[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s128
+Status: correct
+Time (seconds): 1.12878073
+Checksum: 80000
+Rewritten code:
+real_t s128(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j, k;
+    for (int nl = 0; nl < 2 * iterations; nl++) {
+        j = -1;
+        for (int i = 0; i < LEN_1D / 2; i++) {
+            k = j + 1;
+            a[i] = b[k] - d[i];
+            j = k + 1;
+            b[k] = a[i] + c[k];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 1.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s131
+Status: correct
+Time (seconds): 1.50514768
+Checksum: 32009.0234375
+Rewritten code:
+real_t s131(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int m = 1;
+    for (int nl = 0; nl < 5 * iterations; nl++) {
+        for (int i = 0; i <= LEN_1D - 2; i++) {
+            a[i] = a[i + m] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s132
+Status: correct
+Time (seconds): 1.11489511
+Checksum: 65538.5625
+Rewritten code:
+real_t s132(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int m = 0;
+    int j = m;
+    int k = m+1;
+    for (int nl = 0; nl < 400*iterations; nl++) {
+        for (int i = 1; i < LEN_2D; i++) {
+            aa[j][i] = aa[k][i-1] + b[i] * c[1];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s141
+Status: correct
+Time (seconds): 3.37551882
+Checksum: 32454472
+Rewritten code:
+real_t s141(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int k;
+    for (int nl = 0; nl < 200 * (iterations / LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            k = (i+1) * ((i+1) - 1) / 2 + (i+1) - 1;
+            for (int j = i; j < LEN_2D; j++) {
+                flat_2d_array[k] += bb[j][i];
+                k += j + 1;
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s151
+Status: correct
+Time (seconds): 1.48869519
+Checksum: 32009.0234375
+Rewritten code:
+real_t s151(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 5 * iterations; nl++) {
+        s151s(a, b, 1);
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s152
+Status: correct
+Time (seconds): 0.683782692
+Checksum: 152207.5625
+Rewritten code:
+real_t s152(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            b[i] = d[i] * e[i];
+            s152s(a, b, c, i);
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s161
+Status: correct
+Time (seconds): 1.05855659
+Checksum: 64002.0546875
+Rewritten code:
+real_t s161(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 0; i < LEN_1D-1; ++i) {
+            if (b[i] < (real_t)0.) {
+                c[i+1] = a[i] + d[i] * d[i];
+            } else {
+                a[i] = c[i] + d[i] * e[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1161
+Status: correct
+Time (seconds): 2.0145115
+Checksum: 95999
+Rewritten code:
+real_t s1161(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D-1; ++i) {
+            if (c[i] < (real_t)0.) {
+                b[i] = a[i] + d[i] * d[i];
+            } else {
+                a[i] = c[i] + d[i] * e[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s162
+Status: correct
+Time (seconds): 1.58403335
+Checksum: 32009.0234375
+Rewritten code:
+real_t s162(struct args_t * func_args)
+{
+    int k = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        if (k > 0) {
+            for (int i = 0; i < LEN_1D - k; i++) {
+                a[i] = a[i + k] + b[i] * c[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s171
+Status: correct
+Time (seconds): 1.14747075
+Checksum: 196500.265625
+Rewritten code:
+real_t s171(struct args_t * func_args)
+{
+    int inc = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            a[i * inc] += b[i];
+            a[(i + 1) * inc] += b[i + 1];
+            a[(i + 2) * inc] += b[i + 2];
+            a[(i + 3) * inc] += b[i + 3];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s172
+Status: correct
+Time (seconds): 1.10912406
+Checksum: 196500.265625
+Rewritten code:
+real_t s172(struct args_t * func_args)
+{
+    struct{int a;int b;} * x = func_args->arg_info;
+    int n1 = x->a;
+    int n3 = x->b;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = n1-1; i < LEN_1D; i += n3) {
+            a[i] = a[i] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s173
+Status: correct
+Time (seconds): 1.86959173
+Checksum: 32001.626953125
+Rewritten code:
+real_t s173(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int k = LEN_1D / 2;
+    for (int nl = 0; nl < 10 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D / 2; i++) {
+            a[i + k] = a[i] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s174
+Status: correct
+Time (seconds): 1.88849363
+Checksum: 32001.626953125
+Rewritten code:
+real_t s174(struct args_t * func_args)
+{
+    int M = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 10*iterations; nl++) {
+        for (int i = 0; i < M; i++) {
+            a[i+M] = a[i] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s175
+Status: correct
+Time (seconds): 0.338945665
+Checksum: 32009.0234375
+Rewritten code:
+real_t s175(struct args_t * func_args)
+{
+    int inc = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i <= LEN_1D - inc; i += inc) {
+            a[i] = a[i + inc] + b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s176
+Status: correct
+Time (seconds): 0.277344134
+Checksum: 32063.90234375
+Rewritten code:
+real_t s176(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int m = LEN_1D / 2;
+    for (int nl = 0; nl < 4 * (iterations / LEN_1D); nl++) {
+        for (int j = 0; j < (LEN_1D / 2); j++) {
+            for (int i = 0; i < m; i++) {
+                a[i] += b[i + m - j - 1] * c[j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s211
+Status: correct
+Time (seconds): 2.70164309
+Checksum: 63983.30859375
+Rewritten code:
+real_t s211(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 1; i < LEN_1D - 1; i++) {
+            a[i] = b[i - 1] + c[i] * d[i];
+            b[i] = b[i + 1] - e[i] * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s212
+Status: correct
+Time (seconds): 2.58832057
+Checksum: 132018.859375
+Rewritten code:
+real_t s212(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D - 1; i++) {
+            a[i] *= c[i];
+            b[i] += a[i + 1] * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1213
+Status: correct
+Time (seconds): 2.13826149
+Checksum: 6400732160
+Rewritten code:
+real_t s1213(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 1; i < LEN_1D-1; i++) {
+            // Ensure that a[i-1] and a[i+1] are not used in this iteration
+            real_t a_i_minus_1 = a[i-1];
+            real_t a_i_plus_1 = a[i+1];
+
+            a[i] = b[i-1] + c[i];
+            b[i] = a_i_plus_1 * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s221
+Status: correct
+Time (seconds): 2.98193276
+Checksum: 1543684096
+Rewritten code:
+real_t s221(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 1; i < LEN_1D; i++) {
+            a[i] += c[i] * d[i];
+            b[i] = b[i - 1] + a[i] + d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1221
+Status: correct
+Time (seconds): 0.746693947
+Checksum: 128048000
+Rewritten code:
+real_t s1221(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 4; i < LEN_1D; i++) {
+            b[i] = b[i - 4] + a[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s222
+Status: correct
+Time (seconds): 1.66462386
+Checksum: 32000
+Rewritten code:
+real_t s222(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 1; i < LEN_1D; i++) {
+            a[i] += b[i] * c[i];
+            e[i] = e[i - 1] * e[i - 1];
+            a[i] -= b[i] * c[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s231
+Status: correct
+Time (seconds): 14.8850748
+Checksum: 119107.4453125
+Rewritten code:
+real_t s231(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; ++i) {
+            for (int j = 1; j < LEN_2D; j++) {
+                aa[j][i] = aa[j - 1][i] + bb[j][i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s232
+Status: correct
+Time (seconds): 1.26683955
+Checksum: 65536
+Rewritten code:
+real_t s232(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100*(iterations/(LEN_2D)); nl++) {
+        for (int j = 1; j < LEN_2D; j++) {
+            for (int i = 1; i <= j; i++) {
+                aa[j][i] = aa[j][i-1]*aa[j][i-1] + bb[j][i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 1.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1232
+Status: correct
+Time (seconds): 10.237901
+Checksum: 2885.801513671875
+Rewritten code:
+real_t s1232(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / LEN_2D); nl++) {
+        for (int j = 0; j < LEN_2D; j++) {
+            for (int i = j; i < LEN_2D; i++) {
+                aa[i][j] = bb[i][j] + cc[i][j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 1.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s233
+Status: correct
+Time (seconds): 28.6794013
+Checksum: 504920.1875
+Rewritten code:
+real_t s233(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / LEN_2D); nl++) {
+        for (int i = 1; i < LEN_2D; i++) {
+            for (int j = 1; j < LEN_2D; j++) {
+                aa[j][i] = aa[j-1][i] + cc[j][i];
+            }
+            for (int j = 1; j < LEN_2D; j++) {
+                bb[j][i] = bb[j][i-1] + cc[j][i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2233
+Status: correct
+Time (seconds): 13.6977237
+Checksum: 337652.71875
+Rewritten code:
+real_t s2233(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / LEN_2D); nl++) {
+        for (int i = 1; i < LEN_2D; i++) {
+            for (int j = 1; j < LEN_2D; j++) {
+                aa[j][i] = aa[j-1][i] + cc[j][i];
+            }
+            for (int j = 1; j < LEN_2D; j++) {
+                bb[i][j] = bb[i-1][j] + cc[i][j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s235
+Status: correct
+Time (seconds): 0.45197858
+Checksum: 160024.046875
+Rewritten code:
+real_t s235(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 200 * (iterations / LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            a[i] += b[i] * c[i];
+        }
+        for (int j = 1; j < LEN_2D; j++) {
+            for (int i = 0; i < LEN_2D; i++) {
+                aa[j][i] = aa[j-1][i] + bb[j][i] * a[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s241
+Status: correct
+Time (seconds): 1.69081632
+Checksum: 64000
+Rewritten code:
+real_t s241(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 2 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D - 1; i += 4) { // Process 4 elements at a time
+            // Unroll the loop for better parallelization
+            a[i] = b[i] * c[i] * d[i];
+            b[i] = a[i] * a[i + 1] * d[i];
+            
+            a[i + 1] = b[i + 1] * c[i + 1] * d[i + 1];
+            b[i + 1] = a[i + 1] * a[i + 2] * d[i + 1];
+            
+            a[i + 2] = b[i + 2] * c[i + 2] * d[i + 2];
+            b[i + 2] = a[i + 2] * a[i + 3] * d[i + 2];
+            
+            a[i + 3] = b[i + 3] * c[i + 3] * d[i + 3];
+            b[i + 3] = a[i + 3] * a[i + 4] * d[i + 3];
+        }
+
+        // Handle the remaining elements (if any)
+        for (int i = (LEN_1D - 1) & ~3; i < LEN_1D - 1; i++) {
+            a[i] = b[i] * c[i] * d[i];
+            b[i] = a[i] * a[i + 1] * d[i];
+        }
+
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s242
+Status: correct
+Time (seconds): 2.98275657
+Checksum: 1535966208
+Rewritten code:
+real_t s242(struct args_t * func_args)
+{
+    struct{real_t a; real_t b;} * x = func_args->arg_info;
+    real_t s1 = x->a;
+    real_t s2 = x->b;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/5; nl++) {
+        for (int i = 1; i < LEN_1D; ++i) {
+            a[i] = a[i - 1] + s1 + s2 + b[i] + c[i] + d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s243
+Status: correct
+Time (seconds): 0.719179133
+Checksum: 810659.4375
+Rewritten code:
+real_t s243(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D-1; i++) {
+            a[i] = b[i] + c[i] * d[i];
+            b[i] = a[i] + d[i] * e[i];
+            a[i] = b[i] + a[i+1] * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s244
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s1244
+Status: correct
+Time (seconds): 2.35856846
+Checksum: 159997
+Rewritten code:
+real_t s1244(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D-1; i++) {
+            real_t ci = c[i];
+            real_t ci2 = ci * ci;
+            real_t bi = b[i];
+            real_t bi2 = bi * bi;
+            a[i] = bi + ci2 + bi2 + ci;
+            d[i] = a[i] + a[i+1];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2244
+Status: correct
+Time (seconds): 1.26776438
+Checksum: 96000
+Rewritten code:
+real_t s2244(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D-1; i += 4) {
+            a[i+1] = b[i] + e[i];
+            a[i] = b[i] + c[i];
+            a[i+3] = b[i+2] + e[i+2];
+            a[i+2] = b[i+2] + c[i+2];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s251
+Status: correct
+Time (seconds): 2.19696216
+Checksum: 32004.3671875
+Rewritten code:
+real_t s251(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t s;
+    for (int nl = 0; nl < 4 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            s = b[i] + c[i] * d[i];
+            a[i] = s * s;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1251
+Status: correct
+Time (seconds): 3.00922221
+Checksum: 12803353600
+Rewritten code:
+real_t s1251(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t s;
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            s = b[i] + c[i];
+            b[i] = a[i] + d[i];
+            a[i] = s * e[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2251
+Status: correct
+Time (seconds): 2.27952234
+Checksum: 1023941888
+Rewritten code:
+real_t s2251(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        real_t s = (real_t)0.0;
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = s * e[i];
+            s = b[i] + c[i];
+            b[i] = a[i] + d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s3251
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s252
+Status: correct
+Time (seconds): 0.380507747
+Checksum: 63999
+Rewritten code:
+real_t s252(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t t, s;
+    for (int nl = 0; nl < iterations; nl++) {
+        t = (real_t) 0.;
+        for (int i = 0; i < LEN_1D; i++) {
+            s = b[i] * c[i];
+            a[i] = s + t;
+            t = s;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s253
+Status: correct
+Time (seconds): 4.79402328
+Checksum: 3200845824
+Rewritten code:
+real_t s253(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t s;
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            if (a[i] > b[i]) {
+                s = a[i] - b[i] * d[i];
+                c[i] += s;
+                a[i] = s;
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s254
+Status: correct
+Time (seconds): 1.07698476
+Checksum: 32000
+Rewritten code:
+real_t s254(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t x = b[LEN_1D-1];
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t t = b[i] + x;
+            a[i] = t * 0.5;
+            x = b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s255
+Status: correct
+Time (seconds): 1.08985268
+Checksum: 31953.501953125
+Rewritten code:
+real_t s255(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t x, y;
+    for (int nl = 0; nl < iterations; nl++) {
+        x = b[LEN_1D-1];
+        y = b[LEN_1D-2];
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = (b[i] + x + y) * (real_t).333;
+            y = x;
+            x = b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s256
+Status: correct
+Time (seconds): 1.53592037
+Checksum: 130176
+Rewritten code:
+real_t s256(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 10 * (iterations / LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 1; j < LEN_2D; j++) {
+                a[j] = (real_t)1.0 - a[j - 1];
+                aa[j][i] = a[j] + bb[j][i] * d[j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s257
+Status: correct
+Time (seconds): 2.12474635
+Checksum: 163072
+Rewritten code:
+real_t s257(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 10 * (iterations / LEN_2D); nl++) {
+        for (int i = 1; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                a[i] = aa[j][i] - a[i - 1];
+                aa[j][i] = a[i] + bb[j][i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s258
+Status: correct
+Time (seconds): 0.023658685
+Checksum: 14.652779579162598
+Rewritten code:
+real_t s258(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t s = 0.;
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_2D; ++i) {
+            if (a[i] > 0.) {
+                s = d[i] * d[i];
+            }
+            b[i] = s * c[i] + d[i];
+            e[i] = (s + (real_t)1.) * aa[0][i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s261
+Status: correct
+Time (seconds): 2.24629486
+Checksum: 261013.984375
+Rewritten code:
+real_t s261(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t t;
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 1; i < LEN_1D; ++i) {
+            t = a[i] + b[i];
+            a[i] = t + c[i-1];
+            t = c[i] * d[i];
+            c[i] = t;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s271
+Status: correct
+Time (seconds): 6.54270424
+Checksum: 689788.5625
+Rewritten code:
+real_t s271(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            if (b[i] > (real_t)0.) {
+                a[i] += b[i] * c[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s272
+Status: correct
+Time (seconds): 0.698558186
+Checksum: 64000
+Rewritten code:
+real_t s272(struct args_t * func_args)
+{
+    int t = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t cond = e[i] >= t;
+            a[i] += cond * c[i] * d[i];
+            b[i] += cond * c[i] * c[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s273
+Status: correct
+Time (seconds): 0.749370503
+Checksum: 99055.859375
+Rewritten code:
+real_t s273(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t temp_a = a[i];
+            real_t temp_b = b[i];
+            real_t temp_c = c[i];
+            temp_a += d[i] * e[i];
+            if (temp_a < (real_t)0.)
+                temp_b += d[i] * e[i];
+            temp_c += temp_a * d[i];
+            a[i] = temp_a;
+            b[i] = temp_b;
+            c[i] = temp_c;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s274
+Status: correct
+Time (seconds): 2.69701295
+Checksum: 3201031680
+Rewritten code:
+real_t s274(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t temp_a = c[i] + e[i] * d[i];
+            if (temp_a > (real_t)0.) {
+                b[i] += temp_a;
+            } else {
+                temp_a = d[i] * e[i];
+            }
+            a[i] = temp_a;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s275
+Status: correct
+Time (seconds): 0.624732721
+Checksum: 65536
+Rewritten code:
+real_t s275(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 10*(iterations/LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            real_t sum = 0.0;
+            for (int j = 1; j < LEN_2D; j++) {
+                sum += bb[j][i] * cc[j][i];
+            }
+            aa[1][i] = aa[0][i] + sum;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2275
+Status: correct
+Time (seconds): 27.6542547
+Checksum: 16386839
+Rewritten code:
+real_t s2275(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                aa[j][i] += bb[j][i] * cc[j][i];
+            }
+            a[i] = b[i] + c[i] * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s276
+Status: correct
+Time (seconds): 1.70040433
+Checksum: 689788.5625
+Rewritten code:
+real_t s276(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int mid = (LEN_1D / 2);
+    for (int nl = 0; nl < 4 * iterations; nl++) {
+        for (int i = 0; i < mid; i++) {
+            a[i] += b[i] * c[i];
+        }
+        for (int i = mid; i < LEN_1D; i++) {
+            a[i] += b[i] * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s277
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s278
+Status: correct
+Time (seconds): 4.87820494
+Checksum: 64012.58984375
+Rewritten code:
+real_t s278(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            if (a[i] > 0.) {
+                c[i] = -c[i] + d[i] * e[i];
+            } else {
+                b[i] = -b[i] + d[i] * e[i];
+            }
+            a[i] = b[i] + c[i] * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s279
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s1279
+Status: correct
+Time (seconds): 1.13188716
+Checksum: 96000
+Rewritten code:
+real_t s1279(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 8) {
+            if (a[i] < (real_t)0.) {
+                if (b[i] > a[i]) {
+                    c[i] += d[i] * e[i];
+                }
+            }
+            if (a[i+1] < (real_t)0.) {
+                if (b[i+1] > a[i+1]) {
+                    c[i+1] += d[i+1] * e[i+1];
+                }
+            }
+            if (a[i+2] < (real_t)0.) {
+                if (b[i+2] > a[i+2]) {
+                    c[i+2] += d[i+2] * e[i+2];
+                }
+            }
+            if (a[i+3] < (real_t)0.) {
+                if (b[i+3] > a[i+3]) {
+                    c[i+3] += d[i+3] * e[i+3];
+                }
+            }
+            if (a[i+4] < (real_t)0.) {
+                if (b[i+4] > a[i+4]) {
+                    c[i+4] += d[i+4] * e[i+4];
+                }
+            }
+            if (a[i+5] < (real_t)0.) {
+                if (b[i+5] > a[i+5]) {
+                    c[i+5] += d[i+5] * e[i+5];
+                }
+            }
+            if (a[i+6] < (real_t)0.) {
+                if (b[i+6] > a[i+6]) {
+                    c[i+6] += d[i+6] * e[i+6];
+                }
+            }
+            if (a[i+7] < (real_t)0.) {
+                if (b[i+7] > a[i+7]) {
+                    c[i+7] += d[i+7] * e[i+7];
+                }
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2710
+Status: correct
+Time (seconds): 0.416258339
+Checksum: 96003.28125
+Rewritten code:
+real_t s2710(struct args_t * func_args)
+{
+    int x = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t ai = a[i];
+            real_t bi = b[i];
+            real_t di = d[i];
+            real_t ei = e[i];
+            real_t ci;
+
+            if (ai > bi) {
+                ai += bi * di;
+                if (LEN_1D > 10) {
+                    ci = di * di;
+                } else {
+                    ci = di * ei + (real_t)1.;
+                }
+            } else {
+                bi = ai + ei * ei;
+                if (x > (real_t)0.) {
+                    ci = ai + di * di;
+                } else {
+                    ci = ei * ei;
+                }
+            }
+
+            a[i] = ai;
+            b[i] = bi;
+            c[i] = ci;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2711
+Status: correct
+Time (seconds): 7.89317041
+Checksum: 689788.5625
+Rewritten code:
+real_t s2711(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 8) {
+            if (b[i] != (real_t)0.0) {
+                a[i] += b[i] * c[i];
+            }
+            if (b[i + 1] != (real_t)0.0) {
+                a[i + 1] += b[i + 1] * c[i + 1];
+            }
+            if (b[i + 2] != (real_t)0.0) {
+                a[i + 2] += b[i + 2] * c[i + 2];
+            }
+            if (b[i + 3] != (real_t)0.0) {
+                a[i + 3] += b[i + 3] * c[i + 3];
+            }
+            if (b[i + 4] != (real_t)0.0) {
+                a[i + 4] += b[i + 4] * c[i + 4];
+            }
+            if (b[i + 5] != (real_t)0.0) {
+                a[i + 5] += b[i + 5] * c[i + 5];
+            }
+            if (b[i + 6] != (real_t)0.0) {
+                a[i + 6] += b[i + 6] * c[i + 6];
+            }
+            if (b[i + 7] != (real_t)0.0) {
+                a[i + 7] += b[i + 7] * c[i + 7];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2712
+Status: correct
+Time (seconds): 8.19051278
+Checksum: 289747.5625
+Rewritten code:
+real_t s2712(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            if (a[i] > b[i]) {
+                a[i] += b[i] * c[i];
+            }
+            if (a[i+1] > b[i+1]) {
+                a[i+1] += b[i+1] * c[i+1];
+            }
+            if (a[i+2] > b[i+2]) {
+                a[i+2] += b[i+2] * c[i+2];
+            }
+            if (a[i+3] > b[i+3]) {
+                a[i+3] += b[i+3] * c[i+3];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s281
+Status: correct
+Time (seconds): 2.49902734
+Checksum: 32000
+Rewritten code:
+real_t s281(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t x;
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            x = a[LEN_1D - i - 1] + b[i] * c[i];
+            real_t tmp = x - (real_t)1.0;
+            a[i] = tmp;
+            b[i] = x;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1281
+Status: correct
+Time (seconds): 2.69495706
+Checksum: inf
+Rewritten code:
+real_t s1281(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t x;
+    for (int nl = 0; nl < 4 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            x = b[i] * c[i] + a[i] * d[i] + e[i];
+            a[i] = x - (real_t)1.0;
+            b[i] = x;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s291
+Status: correct
+Time (seconds): 2.21237438
+Checksum: 32000
+Rewritten code:
+real_t s291(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int im1 = LEN_1D - 1;
+    for (int nl = 0; nl < 2 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = (b[i] + b[im1]) * (real_t).5;
+            im1 = i;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s292
+Status: correct
+Time (seconds): 1.09823208
+Checksum: 31953.501953125
+Rewritten code:
+real_t s292(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int im1, im2;
+    for (int nl = 0; nl < iterations; nl++) {
+        im1 = LEN_1D - 1;
+        im2 = LEN_1D - 2;
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = (b[i] + b[im1] + b[im2]) * (real_t).333;
+            im2 = im1;
+            im1 = i;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s293
+Status: correct
+Time (seconds): 2.49049998
+Checksum: 32000
+Rewritten code:
+real_t s293(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 8) {
+            a[i + 0] = a[0];
+            a[i + 1] = a[0];
+            a[i + 2] = a[0];
+            a[i + 3] = a[0];
+            a[i + 4] = a[0];
+            a[i + 5] = a[0];
+            a[i + 6] = a[0];
+            a[i + 7] = a[0];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2101
+Status: correct
+Time (seconds): 0.496662787
+Checksum: 1704092
+Rewritten code:
+real_t s2101(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 10 * iterations; nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            aa[i][i] += bb[i][i] * cc[i][i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2102
+Status: correct
+Time (seconds): 7.39638434
+Checksum: 256
+Rewritten code:
+real_t s2102(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / LEN_2D); nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                aa[j][i] = (real_t)0.;
+            }
+            aa[i][i] = (real_t)1.;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s2111
+Status: correct
+Time (seconds): 16.7839051
+Checksum: 34544940
+Rewritten code:
+real_t s2111(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 100 * (iterations / (LEN_2D)); nl++) {
+        for (int j = 1; j < LEN_2D; j++) {
+            for (int i = 1; i < LEN_2D; i++) {
+                aa[j][i] = (aa[j][i-1] + aa[j-1][i]) / 1.9;
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s311
+Status: correct
+Time (seconds): 29.7308404
+Checksum: 10.95072078704834
+Rewritten code:
+real_t s311(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t sum;
+    for (int nl = 0; nl < iterations*10; nl++) {
+        sum = (real_t)0.;
+        for (int i = 0; i < LEN_1D; i++) {
+            sum += a[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, sum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s31111
+Status: correct
+Time (seconds): 1.24827667
+Checksum: 32000
+Rewritten code:
+real_t s31111(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t sum = 0.0;
+    for (int nl = 0; nl < 2000 * iterations; nl++) {
+        sum = test(a) + test(&a[4]) + test(&a[8]) + test(&a[12]) +
+              test(&a[16]) + test(&a[20]) + test(&a[24]) + test(&a[28]);
+        dummy(a, b, c, d, e, aa, bb, cc, sum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s312
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s313
+Status: correct
+Time (seconds): 19.8567914
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t s313(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t dot;
+    for (int nl = 0; nl < iterations * 5; nl++) {
+        dot = (real_t)0.;
+        for (int i = 0; i < LEN_1D; i += 4) {
+            dot += a[i] * b[i];
+            dot += a[i + 1] * b[i + 1];
+            dot += a[i + 2] * b[i + 2];
+            dot += a[i + 3] * b[i + 3];
+        }
+        for (int i = (LEN_1D / 4) * 4; i < LEN_1D; i++) {
+            dot += a[i] * b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, dot);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return dot;
+}
+
+========================================================================
+Kernel: s314
+Status: correct
+Time (seconds): 4.98406619
+Checksum: 1
+Rewritten code:
+real_t s314(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t x = -INFINITY;
+    for (int nl = 0; nl < iterations * 5; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            if (a[i] > x) {
+                x = a[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, x);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return x;
+}
+
+========================================================================
+Kernel: s315
+Status: correct
+Time (seconds): 1.49555324
+Checksum: 54857
+Rewritten code:
+real_t s315(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int i = 0; i < LEN_1D; i++)
+        a[i] = (i * 7) % LEN_1D;
+
+    real_t x, chksum;
+    int index;
+    for (int nl = 0; nl < iterations; nl++) {
+        x = a[0];
+        index = 0;
+        for (int i = 1; i < LEN_1D; i++) {
+            if (a[i] > x) {
+                x = a[i];
+                index = i;
+            }
+        }
+        chksum = x + (real_t) index;
+        dummy(a, b, c, d, e, aa, bb, cc, chksum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return index + x + 1;
+}
+
+========================================================================
+Kernel: s316
+Status: correct
+Time (seconds): 4.96231972
+Checksum: 3.1250001484295353e-05
+Rewritten code:
+real_t s316(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t x;
+    for (int nl = 0; nl < iterations*5; nl++) {
+        x = a[0];
+        for (int i = 1; i < LEN_1D; ++i) {
+            if (a[i] < x) {
+                x = a[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, x);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return x;
+}
+
+========================================================================
+Kernel: s317
+Status: correct
+Time (seconds): 8.76900133
+Checksum: 7.0064923216240854e-44
+Rewritten code:
+real_t s317(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t q;
+    for (int nl = 0; nl < 5 * iterations; nl++) {
+        q = (real_t)1.;
+        for (int i = 0; i < LEN_1D / 2; i++) {
+            q *= (real_t).99;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, q);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return q;
+}
+
+========================================================================
+Kernel: s318
+Status: correct
+Time (seconds): 0.793648577
+Checksum: 32002
+Rewritten code:
+real_t s318(struct args_t * func_args)
+{
+    int inc = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int k, index;
+    real_t max, chksum;
+    for (int nl = 0; nl < iterations/2; nl++) {
+        k = 0;
+        index = 0;
+        max = ABS(a[0]);
+        k += inc;
+        for (int i = 1; i < LEN_1D; i++) {
+            real_t val = ABS(a[k]);
+            if (val > max) {
+                max = val;
+                index = i;
+            }
+            k += inc;
+        }
+        chksum = max + (real_t) index;
+        dummy(a, b, c, d, e, aa, bb, cc, chksum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return max + index + 1;
+}
+
+========================================================================
+Kernel: s319
+Status: correct
+Time (seconds): 3.58289421
+Checksum: 43.802993774414062
+Rewritten code:
+real_t s319(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t sum;
+    for (int nl = 0; nl < 2*iterations; nl++) {
+        sum = 0.;
+        for (int i = 0; i < LEN_1D; i += 4) {
+            real_t a1 = c[i] + d[i];
+            real_t a2 = c[i+1] + d[i+1];
+            real_t a3 = c[i+2] + d[i+2];
+            real_t a4 = c[i+3] + d[i+3];
+            sum += a1 + a2 + a3 + a4;
+
+            real_t b1 = c[i] + e[i];
+            real_t b2 = c[i+1] + e[i+1];
+            real_t b3 = c[i+2] + e[i+2];
+            real_t b4 = c[i+3] + e[i+3];
+            sum += b1 + b2 + b3 + b4;
+
+            a[i] = a1;
+            a[i+1] = a2;
+            a[i+2] = a3;
+            a[i+3] = a4;
+
+            b[i] = b1;
+            b[i+1] = b2;
+            b[i+2] = b3;
+            b[i+3] = b4;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, sum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return sum;
+}
+
+========================================================================
+Kernel: s3110
+Status: correct
+Time (seconds): 1.59076699
+Checksum: 514
+Rewritten code:
+real_t s3110(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int xindex, yindex;
+    real_t max, chksum;
+    for (int nl = 0; nl < 100 * (iterations / (LEN_2D)); nl++) {
+        max = aa[0][0];
+        xindex = 0;
+        yindex = 0;
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                if (aa[i][j] > max) {
+                    max = aa[i][j];
+                    xindex = i;
+                    yindex = j;
+                }
+            }
+        }
+        chksum = max + (real_t)xindex + (real_t)yindex;
+        dummy(a, b, c, d, e, aa, bb, cc, chksum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return max + xindex + 1 + yindex + 1;
+}
+
+========================================================================
+Kernel: s13110
+Status: correct
+Time (seconds): 1.59968203
+Checksum: 3
+Rewritten code:
+real_t s13110(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int xindex, yindex;
+    real_t max, chksum;
+    for (int nl = 0; nl < 100 * (iterations / (LEN_2D)); nl++) {
+        max = aa[0][0];
+        xindex = 0;
+        yindex = 0;
+        for (int i = 0; i < LEN_2D; i++) {
+            for (int j = 0; j < LEN_2D; j++) {
+                if (aa[i][j] > max) {
+                    max = aa[i][j];
+                    xindex = i;
+                    yindex = j;
+                }
+            }
+        }
+        chksum = max + (real_t)xindex + (real_t)yindex;
+        dummy(a, b, c, d, e, aa, bb, cc, chksum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return max + xindex + 1 + yindex + 1;
+}
+
+========================================================================
+Kernel: s3111
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s3112
+Status: correct
+Time (seconds): 2.98374108
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t s3112(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t sum;
+    for (int nl = 0; nl < iterations; nl++) {
+        sum = (real_t)0.0;
+        for (int i = 0; i < LEN_1D - 7; i += 8) { // Unroll by 8
+            sum += a[i];
+            b[i] = sum;
+            sum += a[i + 1];
+            b[i + 1] = sum;
+            sum += a[i + 2];
+            b[i + 2] = sum;
+            sum += a[i + 3];
+            b[i + 3] = sum;
+            sum += a[i + 4];
+            b[i + 4] = sum;
+            sum += a[i + 5];
+            b[i + 5] = sum;
+            sum += a[i + 6];
+            b[i + 6] = sum;
+            sum += a[i + 7];
+            b[i + 7] = sum;
+        }
+        // Handle the remaining elements
+        for (int i = LEN_1D - 8; i < LEN_1D; i++) {
+            sum += a[i];
+            b[i] = sum;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, sum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return sum;
+}
+
+========================================================================
+Kernel: s3113
+Status: correct
+Time (seconds): 3.97675592
+Checksum: 2
+Rewritten code:
+real_t s3113(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t max;
+    for (int nl = 0; nl < iterations*4; nl++) {
+        max = ABS(a[0]);
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t abs_a_i = ABS(a[i]);
+            if (abs_a_i > max) {
+                max = abs_a_i;
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, max);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return max;
+}
+
+========================================================================
+Kernel: s321
+Status: correct
+Time (seconds): 0.4045686
+Checksum: 32000
+Rewritten code:
+real_t s321(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        real_t a0 = a[0];
+        for (int i = 1; i < LEN_1D; i++) {
+            real_t temp = a[i];
+            a[i] += a0 * b[i];
+            a0 = temp;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s322
+Status: correct
+Time (seconds): 5.09843179
+Checksum: 32000
+Rewritten code:
+real_t s322(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 2; i < LEN_1D; i++) {
+            a[i] = a[i] + a[i - 1] * b[i] + a[i - 2] * c[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s323
+Status: correct
+Time (seconds): 3.97499321
+Checksum: 146472.4375
+Rewritten code:
+real_t s323(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 1; i < LEN_1D; i++) {
+            a[i] = b[i-1] + c[i] * d[i];
+            b[i] = a[i] + c[i] * e[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s331
+Status: correct
+Time (seconds): 0.994498187
+Checksum: 32000
+Rewritten code:
+real_t s331(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j;
+    real_t chksum;
+    for (int nl = 0; nl < iterations; nl++) {
+        j = -1;
+        for (int i = 0; i < LEN_1D; i++) {
+            if (a[i] < (real_t)0.) {
+                j = i;
+                break;
+            }
+        }
+        chksum = (real_t) j;
+        dummy(a, b, c, d, e, aa, bb, cc, chksum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return j+1;
+}
+
+========================================================================
+Kernel: s332
+Status: correct
+Time (seconds): 0.994787511
+Checksum: -1
+Rewritten code:
+real_t s332(struct args_t * func_args)
+{
+    int t = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int index;
+    real_t value;
+    real_t chksum;
+    for (int nl = 0; nl < iterations; nl++) {
+        index = -2;
+        value = -1.;
+        for (int i = 0; i < LEN_1D; i++) {
+            if (a[i] > t) {
+                index = i;
+                value = a[i];
+                break;
+            }
+        }
+        chksum = value + (real_t) index;
+        dummy(a, b, c, d, e, aa, bb, cc, chksum);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return value;
+}
+
+========================================================================
+Kernel: s341
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s342
+Status: correct
+Time (seconds): 1.63988394
+Checksum: 10.95072078704834
+Rewritten code:
+real_t s342(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int j = 0;
+    for (int nl = 0; nl < iterations; nl++) {
+        j = -1;
+        for (int i = 0; i < LEN_1D; i++) {
+            if (a[i] > (real_t)0.) {
+                j++;
+                a[i] = b[j];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s343
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s351
+Status: correct
+Time (seconds): 5.23151262
+Checksum: 25606707200
+Rewritten code:
+real_t s351(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t alpha = c[0];
+    for (int nl = 0; nl < 8 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 5) {
+            a[i] += alpha * b[i];
+            a[i + 1] += alpha * b[i + 1];
+            a[i + 2] += alpha * b[i + 2];
+            a[i + 3] += alpha * b[i + 3];
+            a[i + 4] += alpha * b[i + 4];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1351
+Status: correct
+Time (seconds): 3.1097501
+Checksum: 64000
+Rewritten code:
+real_t s1351(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 8 * iterations; nl++) {
+        real_t* __restrict__ A = a;
+        real_t* __restrict__ B = b;
+        real_t* __restrict__ C = c;
+        for (int i = 0; i < LEN_1D; i++) {
+            *A = *B + *C;
+            A++;
+            B++;
+            C++;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s352
+Status: correct
+Time (seconds): 31.7511064
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t s352(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t dot;
+    for (int nl = 0; nl < 8 * iterations; nl++) {
+        dot = (real_t)0.;
+        for (int i = 0; i < LEN_1D; i += 5) {
+            dot += a[i] * b[i];
+            dot += a[i + 1] * b[i + 1];
+            dot += a[i + 2] * b[i + 2];
+            dot += a[i + 3] * b[i + 3];
+            dot += a[i + 4] * b[i + 4];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, dot);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return dot;
+}
+
+========================================================================
+Kernel: s353
+Status: correct
+Time (seconds): 1.10040336
+Checksum: 3200838400
+Rewritten code:
+real_t s353(struct args_t * func_args)
+{
+    int * __restrict__ ip = func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t alpha = c[0];
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 16) {
+            a[i] += alpha * b[ip[i]];
+            a[i + 1] += alpha * b[ip[i + 1]];
+            a[i + 2] += alpha * b[ip[i + 2]];
+            a[i + 3] += alpha * b[ip[i + 3]];
+            a[i + 4] += alpha * b[ip[i + 4]];
+            a[i + 5] += alpha * b[ip[i + 5]];
+            a[i + 6] += alpha * b[ip[i + 6]];
+            a[i + 7] += alpha * b[ip[i + 7]];
+            a[i + 8] += alpha * b[ip[i + 8]];
+            a[i + 9] += alpha * b[ip[i + 9]];
+            a[i + 10] += alpha * b[ip[i + 10]];
+            a[i + 11] += alpha * b[ip[i + 11]];
+            a[i + 12] += alpha * b[ip[i + 12]];
+            a[i + 13] += alpha * b[ip[i + 13]];
+            a[i + 14] += alpha * b[ip[i + 14]];
+            a[i + 15] += alpha * b[ip[i + 15]];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s421
+Status: correct
+Time (seconds): 1.15115334
+Checksum: 32009.0234375
+Rewritten code:
+real_t s421(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    xx = flat_2d_array;
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        yy = xx;
+        for (int i = 0; i < LEN_1D - 1; i++) {
+            xx[i] = yy[i+1] + a[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 1.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s1421
+Status: correct
+Time (seconds): 1.51433273
+Checksum: 16000
+Rewritten code:
+real_t s1421(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    xx = &b[LEN_1D/2];
+
+    for (int nl = 0; nl < 8*iterations; nl++) {
+        for (int i = 0; i < LEN_1D/2; i++) {
+            b[i] = xx[i] + a[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 1.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s422
+Status: correct
+Time (seconds): 9.99946794
+Checksum: 3.7377150058746338
+Rewritten code:
+real_t s422(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    xx = flat_2d_array + 4;
+
+    for (int nl = 0; nl < 8 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            xx[i] = flat_2d_array[i + 8] + a[i];
+            xx[i + 1] = flat_2d_array[i + 9] + a[i + 1];
+            xx[i + 2] = flat_2d_array[i + 10] + a[i + 2];
+            xx[i + 3] = flat_2d_array[i + 11] + a[i + 3];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s423
+Status: correct
+Time (seconds): 1.20155719
+Checksum: 2.7367484569549561
+Rewritten code:
+real_t s423(struct args_t * func_args)
+{
+    int vl = 64;
+    real_t *xx = flat_2d_array + vl;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D - 1; i += 8) {
+            real_t x0 = xx[i];
+            real_t x1 = xx[i + 1];
+            real_t x2 = xx[i + 2];
+            real_t x3 = xx[i + 3];
+            real_t x4 = xx[i + 4];
+            real_t x5 = xx[i + 5];
+            real_t x6 = xx[i + 6];
+            real_t x7 = xx[i + 7];
+
+            real_t a0 = a[i];
+            real_t a1 = a[i + 1];
+            real_t a2 = a[i + 2];
+            real_t a3 = a[i + 3];
+            real_t a4 = a[i + 4];
+            real_t a5 = a[i + 5];
+            real_t a6 = a[i + 6];
+            real_t a7 = a[i + 7];
+
+            flat_2d_array[i + 1] = x0 + a0;
+            flat_2d_array[i + 2] = x1 + a1;
+            flat_2d_array[i + 3] = x2 + a2;
+            flat_2d_array[i + 4] = x3 + a3;
+            flat_2d_array[i + 5] = x4 + a4;
+            flat_2d_array[i + 6] = x5 + a5;
+            flat_2d_array[i + 7] = x6 + a6;
+            flat_2d_array[i + 8] = x7 + a7;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 1.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s424
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s431
+Status: correct
+Time (seconds): 15.5088441
+Checksum: 1674287.625
+Rewritten code:
+real_t s431(struct args_t * func_args)
+{
+    int k1 = 1;
+    int k2 = 2;
+    int k = 2 * k1 - k2;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations * 10; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            real_t a0 = a[i + 0];
+            real_t a1 = a[i + 1];
+            real_t a2 = a[i + 2];
+            real_t a3 = a[i + 3];
+
+            a[i + 0] = a0 + b[i + 0];
+            a[i + 1] = a1 + b[i + 1];
+            a[i + 2] = a2 + b[i + 2];
+            a[i + 3] = a3 + b[i + 3];
+        }
+
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s441
+Status: correct
+Time (seconds): 0.631444183
+Checksum: 196500.265625
+Rewritten code:
+real_t s441(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            real_t d_i = d[i];
+            real_t a_i = a[i];
+            real_t b_i = b[i];
+            real_t c_i = c[i];
+            real_t result;
+
+            if (d_i < (real_t)0.) {
+                result = a_i + b_i * c_i;
+            } else if (d_i == (real_t)0.) {
+                result = a_i + b_i * b_i;
+            } else {
+                result = a_i + c_i * c_i;
+            }
+
+            a[i] = result;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s442
+Status: correct
+Time (seconds): 0.788953813
+Checksum: 114244.6328125
+Rewritten code:
+real_t s442(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            real_t ai4 = a[i];
+            real_t ai5 = a[i + 1];
+            real_t ai6 = a[i + 2];
+            real_t ai7 = a[i + 3];
+            real_t bi4 = b[i];
+            real_t bi5 = b[i + 1];
+            real_t bi6 = b[i + 2];
+            real_t bi7 = b[i + 3];
+            real_t ci4 = c[i];
+            real_t ci5 = c[i + 1];
+            real_t ci6 = c[i + 2];
+            real_t ci7 = c[i + 3];
+            real_t di4 = d[i];
+            real_t di5 = d[i + 1];
+            real_t di6 = d[i + 2];
+            real_t di7 = d[i + 3];
+            real_t ei4 = e[i];
+            real_t ei5 = e[i + 1];
+            real_t ei6 = e[i + 2];
+            real_t ei7 = e[i + 3];
+
+            ai4 += bi4 * bi4;
+            ai5 += bi5 * bi5;
+            ai6 += bi6 * bi6;
+            ai7 += bi7 * bi7;
+            ci4 += ci4 * ci4;
+            ci5 += ci5 * ci5;
+            ci6 += ci6 * ci6;
+            ci7 += ci7 * ci7;
+            di4 += di4 * di4;
+            di5 += di5 * di5;
+            di6 += di6 * di6;
+            di7 += di7 * di7;
+            ei4 += ei4 * ei4;
+            ei5 += ei5 * ei5;
+            ei6 += ei6 * ei6;
+            ei7 += ei7 * ei7;
+
+            a[i] = ai4;
+            a[i + 1] = ai5;
+            a[i + 2] = ai6;
+            a[i + 3] = ai7;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s443
+Status: correct
+Time (seconds): 1.05225188
+Checksum: 361034.03125
+Rewritten code:
+real_t s443(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 2 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            if (d[i] <= (real_t)0.) {
+                a[i] += b[i] * c[i];
+            } else {
+                a[i] += b[i] * b[i];
+            }
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s451
+Status: correct
+Time (seconds): 4.17930585
+Checksum: 32007.896484375
+Rewritten code:
+real_t s451(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/5; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            a[i] = sinf(b[i]) + cosf(c[i]);
+            a[i + 1] = sinf(b[i + 1]) + cosf(c[i + 1]);
+            a[i + 2] = sinf(b[i + 2]) + cosf(c[i + 2]);
+            a[i + 3] = sinf(b[i + 3]) + cosf(c[i + 3]);
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s452
+Status: correct
+Time (seconds): 6.45549801
+Checksum: 32511.939453125
+Rewritten code:
+real_t s452(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            real_t temp1 = (real_t)(i+1);
+            a[i] = b[i] + c[i] * temp1;
+            a[i+1] = b[i+1] + c[i+1] * (temp1 + 1);
+            a[i+2] = b[i+2] + c[i+2] * (temp1 + 2);
+            a[i+3] = b[i+3] + c[i+3] * (temp1 + 3);
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s453
+Status: correct
+Time (seconds): 5.9585329
+Checksum: 21.90144157409668
+Rewritten code:
+real_t s453(struct args_t * func_args)
+{
+    real_t s;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations * 2; nl++) {
+        s = 0.;
+        for (int i = 0; i < LEN_1D; i++) {
+            s += (real_t)2.;
+            a[i] = s * b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s471
+Status: correct
+Time (seconds): 0.347057739
+Checksum: 64004.92578125
+Rewritten code:
+real_t s471(struct args_t * func_args){
+    int m = LEN_1D;
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations/2; nl++) {
+        for (int i = 0; i < m; i++) {
+            x[i] = b[i] + d[i] * d[i];
+            s471s();
+            b[i] = c[i] + d[i] * e[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s481
+Status: correct
+Time (seconds): 1.17986692
+Checksum: 196500.265625
+Rewritten code:
+real_t s481(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 8) {
+            real_t a0 = a[i], a1 = a[i + 1], a2 = a[i + 2], a3 = a[i + 3];
+            real_t a4 = a[i + 4], a5 = a[i + 5], a6 = a[i + 6], a7 = a[i + 7];
+            real_t b0 = b[i], b1 = b[i + 1], b2 = b[i + 2], b3 = b[i + 3];
+            real_t b4 = b[i + 4], b5 = b[i + 5], b6 = b[i + 6], b7 = b[i + 7];
+            real_t c0 = c[i], c1 = c[i + 1], c2 = c[i + 2], c3 = c[i + 3];
+            real_t c4 = c[i + 4], c5 = c[i + 5], c6 = c[i + 6], c7 = c[i + 7];
+
+            if (d[i] < 0. || d[i + 1] < 0. || d[i + 2] < 0. || d[i + 3] < 0. ||
+                d[i + 4] < 0. || d[i + 5] < 0. || d[i + 6] < 0. || d[i + 7] < 0.) {
+                exit(0);
+            }
+
+            a0 += b0 * c0; a1 += b1 * c1; a2 += b2 * c2; a3 += b3 * c3;
+            a4 += b4 * c4; a5 += b5 * c5; a6 += b6 * c6; a7 += b7 * c7;
+
+            a[i] = a0; a[i + 1] = a1; a[i + 2] = a2; a[i + 3] = a3;
+            a[i + 4] = a4; a[i + 5] = a5; a[i + 6] = a6; a[i + 7] = a7;
+        }
+
+        for (int i = LEN_1D - LEN_1D % 8; i < LEN_1D; i++) {
+            if (d[i] < 0.) {
+                exit(0);
+            }
+            a[i] += b[i] * c[i];
+        }
+
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s482
+Status: correct
+Time (seconds): 2.20274827
+Checksum: 196500.265625
+Rewritten code:
+real_t s482(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] += b[i] * c[i];
+            if (c[i] > b[i]) break;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s491
+Status: correct
+Time (seconds): 3.67710437
+Checksum: 32001.640625
+Rewritten code:
+real_t s491(struct args_t * func_args)
+{
+    int * __restrict__ ip = func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            int idx1 = ip[i];
+            int idx2 = ip[i + 1];
+            int idx3 = ip[i + 2];
+            int idx4 = ip[i + 3];
+
+            a[idx1] = b[i] + c[i] * d[i];
+            a[idx2] = b[i + 1] + c[i + 1] * d[i + 1];
+            a[idx3] = b[i + 2] + c[i + 2] * d[i + 2];
+            a[idx4] = b[i + 3] + c[i + 3] * d[i + 3];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s4112
+Status: correct
+Time (seconds): 1.41495798
+Checksum: 1127128.875
+Rewritten code:
+real_t s4112(struct args_t * func_args)
+{
+    struct{int * __restrict__ a;real_t b;} * x = func_args->arg_info;
+    int * __restrict__ ip = x->a;
+    real_t s = x->b;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] += b[ip[i]] * s;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s4113
+Status: correct
+Time (seconds): 10.2410834
+Checksum: 32001.640625
+Rewritten code:
+real_t s4113(struct args_t * func_args)
+{
+    int * __restrict__ ip = func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            a[ip[i]] = b[ip[i]] + c[i];
+            a[ip[i+1]] = b[ip[i+1]] + c[i+1];
+            a[ip[i+2]] = b[ip[i+2]] + c[i+2];
+            a[ip[i+3]] = b[ip[i+3]] + c[i+3];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s4114
+Status: correct
+Time (seconds): 1.37490949
+Checksum: 32000
+Rewritten code:
+real_t s4114(struct args_t * func_args)
+{
+    struct{int * __restrict__ a; int b;} * x = func_args->arg_info;
+    int * __restrict__ ip = x->a;
+    int n1 = x->b;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    int k;
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = n1-1; i < LEN_1D; i++) {
+            k = ip[i];
+            a[i] = b[i] + c[LEN_1D-k+1-2] * d[i];
+            k += 5;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s4115
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: s4116
+Status: correct
+Time (seconds): 2.43303279
+Checksum: 0.75326484441757202
+Rewritten code:
+real_t s4116(struct args_t * func_args)
+{
+    struct{int * __restrict__ a; int b; int c;} * x = func_args->arg_info;
+    int * __restrict__ ip = x->a;
+    int j = x->b;
+    int inc = x->c;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t sum;
+    int off;
+    for (int nl = 0; nl < 100*iterations; nl++) {
+        sum = 0.;
+        for (int i = 0; i < LEN_2D-1; i++) {
+            off = inc + i;
+            sum += a[off] * aa[j-1][ip[i]];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return sum;
+}
+
+========================================================================
+Kernel: s4117
+Status: correct
+Time (seconds): 0.592260099
+Checksum: 32002.205078125
+Rewritten code:
+real_t s4117(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = b[i] + c[i >> 1] * d[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: s4121
+Status: correct
+Time (seconds): 0.411833965
+Checksum: 196500.265625
+Rewritten code:
+real_t s4121(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 8) {
+            a[i+0] += f(b[i+0], c[i+0]);
+            a[i+1] += f(b[i+1], c[i+1]);
+            a[i+2] += f(b[i+2], c[i+2]);
+            a[i+3] += f(b[i+3], c[i+3]);
+            a[i+4] += f(b[i+4], c[i+4]);
+            a[i+5] += f(b[i+5], c[i+5]);
+            a[i+6] += f(b[i+6], c[i+6]);
+            a[i+7] += f(b[i+7], c[i+7]);
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: va
+Status: correct
+Time (seconds): 2.57126181
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t va(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations*10; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vag
+Status: correct
+Time (seconds): 2.28710072
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t vag(struct args_t * func_args)
+{
+    int * __restrict__ ip = func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    // Unroll the inner loop for better vectorization
+    for (int nl = 0; nl < 2 * iterations; nl++) {
+        for (int i = 0; i < LEN_1D - 3; i += 4) {
+            a[i] = b[ip[i]];
+            a[i + 1] = b[ip[i + 1]];
+            a[i + 2] = b[ip[i + 2]];
+            a[i + 3] = b[ip[i + 3]];
+        }
+        // Handle the remaining elements
+        for (int i = LEN_1D - 3; i < LEN_1D; i++) {
+            a[i] = b[ip[i]];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vas
+Status: correct
+Time (seconds): 19.6432385
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t vas(struct args_t * func_args)
+{
+    int * __restrict__ ip = func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 2 * iterations; nl++) {
+        int i;
+        for (i = 0; i < LEN_1D - 7; i += 8) {
+            a[ip[i+0]] = b[i+0];
+            a[ip[i+1]] = b[i+1];
+            a[ip[i+2]] = b[i+2];
+            a[ip[i+3]] = b[i+3];
+            a[ip[i+4]] = b[i+4];
+            a[ip[i+5]] = b[i+5];
+            a[ip[i+6]] = b[i+6];
+            a[ip[i+7]] = b[i+7];
+        }
+        for (; i < LEN_1D; i++) {
+            a[ip[i]] = b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vif
+Status: correct
+Time (seconds): 0.251419319
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t vif(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = (b[i] > (real_t)0.) ? b[i] : a[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vpv
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: vtv
+Status: correct
+Time (seconds): 2.55094378
+Checksum: 32000
+Rewritten code:
+real_t vtv(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations * 10; nl++) {
+        for (int i = 0; i < LEN_1D - 7; i += 8) {
+            a[i] *= b[i];
+            a[i + 1] *= b[i + 1];
+            a[i + 2] *= b[i + 2];
+            a[i + 3] *= b[i + 3];
+            a[i + 4] *= b[i + 4];
+            a[i + 5] *= b[i + 5];
+            a[i + 6] *= b[i + 6];
+            a[i + 7] *= b[i + 7];
+        }
+        // Handle the remaining elements that are not multiples of 8
+        for (int i = LEN_1D - 7; i < LEN_1D; i++) {
+            a[i] *= b[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vpvtv
+Status: correct
+Time (seconds): 1.54483952
+Checksum: 689788.5625
+Rewritten code:
+real_t vpvtv(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] += b[i] * c[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vpvts
+Status: correct
+Time (seconds): 0.249525897
+Checksum: 175234766340096
+Rewritten code:
+real_t vpvts(struct args_t * func_args)
+{
+    real_t s = *(int*)func_args->arg_info;
+
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] += b[i] * s;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vpvpv
+Status: correct
+Time (seconds): 6.44146101
+Checksum: 1.6447253227233887
+Rewritten code:
+real_t vpvpv(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i += 4) {
+            a[i] += b[i] + c[i];
+            a[i+1] += b[i+1] + c[i+1];
+            a[i+2] += b[i+2] + c[i+2];
+            a[i+3] += b[i+3] + c[i+3];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vtvtv
+Status: correct
+Time (seconds): 1.65656418
+Checksum: 32000
+Rewritten code:
+real_t vtvtv(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    for (int nl = 0; nl < 4*iterations; nl++) {
+        for (int i = 0; i < LEN_1D; i++) {
+            a[i] = a[i] * b[i] * c[i];
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}
+
+========================================================================
+Kernel: vsumr
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: vdotr
+Status: no_correct_rewrite
+
+========================================================================
+Kernel: vbor
+Status: correct
+Time (seconds): 0.173917022
+Checksum: 31924.044921875
+Rewritten code:
+real_t vbor(struct args_t * func_args)
+{
+    initialise_arrays(__func__);
+    gettimeofday(&func_args->t1, NULL);
+
+    real_t a1, b1, c1, d1, e1, f1;
+    real_t a_sum, b_sum, c_sum, d_sum, e_sum, f_sum;
+    for (int nl = 0; nl < iterations*10; nl++) {
+        for (int i = 0; i < LEN_2D; i++) {
+            a1 = a[i];
+            b1 = b[i];
+            c1 = c[i];
+            d1 = d[i];
+            e1 = e[i];
+            f1 = aa[0][i];
+
+            a_sum = a1 * b1 * c1 + a1 * b1 * d1 + a1 * b1 * e1 + a1 * b1 * f1 +
+                    a1 * c1 * d1 + a1 * c1 * e1 + a1 * c1 * f1 + a1 * d1 * e1 +
+                    a1 * d1 * f1 + a1 * e1 * f1;
+            b_sum = b1 * c1 * d1 + b1 * c1 * e1 + b1 * c1 * f1 + b1 * d1 * e1 +
+                    b1 * d1 * f1 + b1 * e1 * f1;
+            c_sum = c1 * d1 * e1 + c1 * d1 * f1 + c1 * e1 * f1;
+            d_sum = d1 * e1 * f1;
+
+            x[i] = a_sum * b_sum * c_sum * d_sum;
+        }
+        dummy(a, b, c, d, e, aa, bb, cc, 0.);
+    }
+
+    gettimeofday(&func_args->t2, NULL);
+    return calc_checksum(__func__);
+}

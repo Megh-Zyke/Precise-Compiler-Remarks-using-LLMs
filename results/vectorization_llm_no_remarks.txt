@@ -1,0 +1,186 @@
+B0: saved best-of-five winner vectorization
+
+Run status: complete
+Started (UTC): 2026-11-24T18:38:35.575389+00:00
+Input report: /mnt/c/Users/dinos/CSE583 Final Project/results/results_llm_no_remarks.txt
+Input SHA256: b3ab71daa5e0aae2ed5982c4649e251cc09508dd45d330b9821d53f64da2ec4f
+Source SHA256: d87fdcf902720c09f1191fd310f5b80e1c95a1fd48394d6cced7cd78ad01a8af
+Saved model: qwen2.5-coder:7b-instruct-fp16
+Saved generation compiler: Ubuntu clang version 14.0.0-1ubuntu1.1
+Evaluation compiler: Ubuntu clang version 18.1.3 (1ubuntu1)
+Platform: Linux-5.15.146.1-microsoft-standard-WSL2-x86_64-with-glibc2.39
+Compiler flags: -O3 -fstrict-aliasing -march=native
+Bounds-check flags: -O3 -fstrict-aliasing -march=native -O1 -fsanitize=bounds -fsanitize-trap=all
+Selected kernels: 151
+Selected subset: False
+Metric: Check-passing newly vectorized saved winners / nonvectorized originals
+Vectorization definition: Any positive Clang work-loop remark in target function; excludes nl repetition headers
+Checks: Bounds-trapping small workload, then full-workload checksum/array differential checks
+Selection: One saved fastest winner from five attempts; discarded candidates cannot be recovered
+Evaluation workers: 4
+Finished (UTC): 2026-11-24T18:59:59.940445+00:00
+Per-command timeout (seconds): 120
+Reference timeout note: s317 reference exceeded timeout; its saved rewrite did not vectorize and remains in denominator
+Processed kernels: 151
+Already vectorized originals (excluded): 83
+Originals without a positive work-loop vectorization remark: 68
+Original compilation failures: 0
+Eligible originals with unavailable reference checks: 1
+Potential new vectorizations with unavailable checks: 0
+Saved winners passing current checks: 133
+Saved winners passing checks and vectorizing (all originals): 75
+Newly vectorized, check-passing winners: 5
+New vectorization rate: 7.35%
+
+Kernel	Original vec	Saved winner vec	Passes checks	New success	Status	Details
+s000	yes	yes	yes	no	passed_checks	
+s111	yes	yes	yes	no	passed_checks	
+s1111	yes	yes	yes	no	passed_checks	
+s112	yes	yes	yes	no	passed_checks	
+s1112	yes	yes	yes	no	passed_checks	
+s113	yes	yes	yes	no	passed_checks	
+s1113	no	no	yes	no	passed_checks	
+s114	no	no	yes	no	passed_checks	
+s115	no	yes	yes	yes	passed_checks	
+s1115	yes	yes	yes	no	passed_checks	
+s116	no	yes	yes	yes	passed_checks	
+s118	no	N/A	no	no	no_saved_rewrite	
+s119	yes	yes	yes	no	passed_checks	
+s1119	yes	yes	yes	no	passed_checks	
+s121	yes	yes	yes	no	passed_checks	
+s122	no	no	yes	no	passed_checks	
+s123	no	no	yes	no	passed_checks	
+s124	yes	yes	yes	no	passed_checks	
+s125	yes	yes	yes	no	passed_checks	
+s126	no	N/A	no	no	no_saved_rewrite	
+s127	yes	yes	yes	no	passed_checks	
+s128	yes	yes	yes	no	passed_checks	
+s131	yes	yes	yes	no	passed_checks	
+s132	yes	yes	yes	no	passed_checks	
+s141	no	no	yes	no	passed_checks	
+s151	no	no	yes	no	passed_checks	
+s152	yes	yes	yes	no	passed_checks	
+s161	no	no	yes	no	passed_checks	
+s1161	no	no	yes	no	passed_checks	
+s162	yes	yes	yes	no	passed_checks	
+s171	yes	no	yes	no	passed_checks	
+s172	no	no	yes	no	passed_checks	
+s173	yes	yes	yes	no	passed_checks	
+s174	yes	yes	yes	no	passed_checks	
+s175	yes	yes	no	no	check_failed	Executable exited -4:
+s176	yes	yes	yes	no	passed_checks	
+s211	no	no	yes	no	passed_checks	
+s212	no	no	yes	no	passed_checks	
+s1213	no	no	yes	no	passed_checks	
+s221	no	no	yes	no	passed_checks	
+s1221	yes	yes	yes	no	passed_checks	
+s222	no	no	yes	no	passed_checks	
+s231	no	no	yes	no	passed_checks	
+s232	no	no	yes	no	passed_checks	
+s1232	yes	yes	yes	no	passed_checks	
+s233	yes	yes	yes	no	passed_checks	
+s2233	yes	yes	yes	no	passed_checks	
+s235	no	yes	yes	yes	passed_checks	
+s241	no	no	no	no	check_failed	Executable exited -4:
+s242	no	no	yes	no	passed_checks	
+s243	yes	yes	yes	no	passed_checks	
+s244	no	N/A	no	no	no_saved_rewrite	
+s1244	no	no	yes	no	passed_checks	
+s2244	yes	yes	yes	no	passed_checks	
+s251	yes	yes	yes	no	passed_checks	
+s1251	yes	yes	yes	no	passed_checks	
+s2251	no	no	yes	no	passed_checks	
+s3251	yes	N/A	no	no	no_saved_rewrite	
+s252	yes	yes	yes	no	passed_checks	
+s253	yes	yes	yes	no	passed_checks	
+s254	yes	yes	yes	no	passed_checks	
+s255	yes	yes	yes	no	passed_checks	
+s256	no	no	yes	no	passed_checks	
+s257	yes	yes	yes	no	passed_checks	
+s258	no	no	yes	no	passed_checks	
+s261	no	no	yes	no	passed_checks	
+s271	yes	yes	yes	no	passed_checks	
+s272	yes	yes	yes	no	passed_checks	
+s273	yes	yes	yes	no	passed_checks	
+s274	yes	yes	yes	no	passed_checks	
+s275	no	no	yes	no	passed_checks	
+s2275	yes	yes	yes	no	passed_checks	
+s276	yes	yes	yes	no	passed_checks	
+s277	no	N/A	no	no	no_saved_rewrite	
+s278	yes	yes	yes	no	passed_checks	
+s279	yes	N/A	no	no	no_saved_rewrite	
+s1279	yes	no	yes	no	passed_checks	
+s2710	yes	yes	yes	no	passed_checks	
+s2711	yes	no	yes	no	passed_checks	
+s2712	yes	yes	yes	no	passed_checks	
+s281	no	no	yes	no	passed_checks	
+s1281	yes	yes	yes	no	passed_checks	
+s291	no	no	yes	no	passed_checks	
+s292	no	no	yes	no	passed_checks	
+s293	yes	no	yes	no	passed_checks	
+s2101	yes	yes	yes	no	passed_checks	
+s2102	yes	yes	yes	no	passed_checks	
+s2111	no	no	yes	no	passed_checks	
+s311	no	no	yes	no	passed_checks	
+s31111	no	no	yes	no	passed_checks	
+s312	no	N/A	no	no	no_saved_rewrite	
+s313	no	no	yes	no	passed_checks	
+s314	no	no	yes	no	passed_checks	
+s315	yes	yes	yes	no	passed_checks	
+s316	no	no	yes	no	passed_checks	
+s317	no	no	N/A	no	reference_uncheckable	Execution failed: Command '['/tmp/b0_vectorization_s317_7r9e637b/original_full/kernel', '/tmp/b0_vectorization_s317_7r9e637b/original_full/state.bin']' timed out after 120 seconds
+s318	no	no	yes	no	passed_checks	
+s319	no	no	yes	no	passed_checks	
+s3110	no	no	yes	no	passed_checks	
+s13110	no	no	yes	no	passed_checks	
+s3111	no	N/A	no	no	no_saved_rewrite	
+s3112	no	no	yes	no	passed_checks	
+s3113	no	no	yes	no	passed_checks	
+s321	no	yes	yes	yes	passed_checks	
+s322	no	no	yes	no	passed_checks	
+s323	no	no	yes	no	passed_checks	
+s331	no	no	yes	no	passed_checks	
+s332	no	no	yes	no	passed_checks	
+s341	no	N/A	no	no	no_saved_rewrite	
+s342	no	no	yes	no	passed_checks	
+s343	no	N/A	no	no	no_saved_rewrite	
+s351	yes	yes	yes	no	passed_checks	
+s1351	yes	yes	yes	no	passed_checks	
+s352	no	no	yes	no	passed_checks	
+s353	yes	no	yes	no	passed_checks	
+s421	yes	yes	yes	no	passed_checks	
+s1421	yes	yes	yes	no	passed_checks	
+s422	yes	yes	yes	no	passed_checks	
+s423	yes	yes	yes	no	passed_checks	
+s424	yes	N/A	no	no	no_saved_rewrite	
+s431	yes	yes	yes	no	passed_checks	
+s441	yes	yes	yes	no	passed_checks	
+s442	no	yes	yes	yes	passed_checks	
+s443	yes	yes	yes	no	passed_checks	
+s451	no	no	yes	no	passed_checks	
+s452	yes	yes	yes	no	passed_checks	
+s453	no	no	yes	no	passed_checks	
+s471	yes	yes	yes	no	passed_checks	
+s481	no	no	yes	no	passed_checks	
+s482	no	no	yes	no	passed_checks	
+s491	yes	no	yes	no	passed_checks	
+s4112	yes	yes	yes	no	passed_checks	
+s4113	yes	no	yes	no	passed_checks	
+s4114	yes	yes	yes	no	passed_checks	
+s4115	no	N/A	no	no	no_saved_rewrite	
+s4116	no	no	yes	no	passed_checks	
+s4117	yes	yes	yes	no	passed_checks	
+s4121	yes	yes	yes	no	passed_checks	
+va	no	no	yes	no	passed_checks	
+vag	yes	yes	yes	no	passed_checks	
+vas	yes	no	yes	no	passed_checks	
+vif	yes	yes	yes	no	passed_checks	
+vpv	yes	N/A	no	no	no_saved_rewrite	
+vtv	yes	yes	yes	no	passed_checks	
+vpvtv	yes	yes	yes	no	passed_checks	
+vpvts	yes	yes	yes	no	passed_checks	
+vpvpv	yes	yes	yes	no	passed_checks	
+vtvtv	yes	yes	yes	no	passed_checks	
+vsumr	no	N/A	no	no	no_saved_rewrite	
+vdotr	no	N/A	no	no	no_saved_rewrite	
+vbor	yes	yes	yes	no	passed_checks	

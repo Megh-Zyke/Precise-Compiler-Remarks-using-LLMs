@@ -27,6 +27,40 @@ Recorded versions:
     python3 -m src.remark_gen     # LLVM LoopAccess -> remarks/generated/
     python3 -m src.correctness    # self-test the checksum checker
 
+## Local LLM alternative (no Anthropic access needed)
+
+Use `src.llm_local` for Qwen2.5-Coder 7B through local Ollama, with the same
+prompt templates and response interface as `src.llm`. See
+[local setup and usage](docs/local_llm.md). On this Windows workspace:
+
+    powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_local_llm.ps1
+    python -m src.llm_without_remarks --dry-run --kernels s212 --trials 1
+
+## B0: LLM without compiler remarks
+
+`src/llm_without_remarks.py` implements independent local-Qwen trials and
+`src/tsvc_benchmark.py` compiles, checks, and measures original/rewrite pairs.
+The default is a preview of all 151 kernels with 5 independent rewrites each;
+generation requires `--run`. Only the fastest correct rewrite per kernel is
+saved, with its measured time and checksum, in one file:
+`results/results_llm_no_remarks.txt`. Other candidates are discarded. The report's
+`Run status` field indicates whether execution is ongoing, failed, or complete.
+See [B0 workflow and review notes](docs/b0.md).
+
+The completed run covers 151 kernels and 755 rewrites using Qwen2.5-Coder 7B
+Instruct FP16 (five independent attempts per kernel).
+
+- **Vectorization:** 5/68 originally unvectorized kernels (**7.35%**) gained
+  vectorization and passed the checks under Clang 18.1.3; 83 already-vectorized
+  originals were excluded. This measures saved winners, not per-trial success.
+  See [vectorization results](results/vectorization_llm_no_remarks.txt).
+- **Originally reported checks:** 387/755 rewrites (**51.3%**) passed;
+  136/151 kernels (**90.1%**) had an accepted rewrite, while 15 had none.
+  See [B0 results](results/results_llm_no_remarks.txt).
+- **Stronger recheck:** 133 saved winners passed; `s175` and `s241` failed bounds
+  checks. `s317` timed out but did not vectorize, so it remains unsuccessful in
+  the vectorization denominator.
+
 ## Status (tick as you go; task IDs refer to the project plan doc)
 - [ ] T0.1 LLVM/Clang installed, versions recorded above
 - [ ] T0.2 TSVC_2 builds and runs unmodified

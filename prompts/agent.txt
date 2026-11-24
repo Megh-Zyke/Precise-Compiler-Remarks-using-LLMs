@@ -2,6 +2,8 @@ You are optimizing a C loop so the compiler can auto-vectorize it.
 Rewrite the function below so that Clang -O3 vectorizes the loop and the
 function computes exactly the same result. Keep the signature unchanged.
 Do not use pragmas, intrinsics or inline assembly.
+For TSVC kernels, preserve the benchmark setup, timing, checksum and dummy
+calls, and the repetition loops over nl. Optimize the computation inside them.
 
 <code>
 {LOOP_SOURCE}

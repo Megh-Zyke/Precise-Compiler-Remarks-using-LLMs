@@ -9,3 +9,23 @@ build/
 results/raw/*
 !results/raw/.gitkeep
 demos/
+# Local reference PDFs (do not commit)
+/context-documents/
+# Local project timeline
+/progress.MD
+# Local TSVC checkout; the tracked submodule link remains in Git
+/third_party/TSVC_2/
+# Local model runtime, downloaded weights, and server logs
+/.local/
+# Local PowerShell scripts
+*.ps1
+# Large server transfer archives (include model weights)
+/output/lambda_b0/
+# Local GPU-server setup and transfer tooling
+/src/lambda_*.py
+/scripts/*lambda*.py
+/notebooks/
+/docs/lambda_*.md
+/docs/b0_vectorization.md
+# Local test suite
+/tests/

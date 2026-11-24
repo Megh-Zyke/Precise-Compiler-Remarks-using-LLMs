@@ -18,7 +18,13 @@ REMARK_FLAGS = [
 MODEL = os.environ.get("LLM_MODEL", "claude-sonnet-5-5")
 TEMPERATURE = 0.8
 MAX_TOKENS = 4096
-TRIALS = 10
+TRIALS = 5
+
+# Local alternative (src.llm_local); no API key or Anthropic SDK is needed.
+LOCAL_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5-coder:7b")
+OLLAMA_URL = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
+LOCAL_CONTEXT_TOKENS = int(os.environ.get("OLLAMA_NUM_CTX", "4096"))
+LOCAL_TIMEOUT = float(os.environ.get("OLLAMA_TIMEOUT", "600"))
 
 RESULTS_CSV = ROOT / "results" / "results.csv"
 RAW_DIR = ROOT / "results" / "raw"
